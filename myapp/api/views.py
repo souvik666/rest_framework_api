@@ -18,3 +18,12 @@ def addItem(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def getByID(request,id):
+   # id = request.query_params
+    result = Item.objects.filter(id=id)
+    serializedValue = ItemSerializer(result, many=True)
+    return Response(serializedValue.data)
